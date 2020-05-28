@@ -1,0 +1,30 @@
+---
+- name: My AS3 Playbook
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    uri_method: POST
+
+  vars_files:
+  - ../Creds/creds.yaml
+  tasks:
+  - name: Send AS3 Declaration
+    uri:
+      url: https://3.11.134.160/mgmt/shared/appsvcs/declare
+      user: "{{ bigip_user }}"
+      password: "{{ bigip_pass  }}"
+      method: "{{ uri_method }}"
+      body: "{{ lookup('file','as3-declaire-deploy.json') }}"
+      force_basic_auth: yes
+      status_code: 200
+      body_format: json
+      validate_certs: no
+    register: as3_responce
+
+  - name: Debug Output AS3 Responce
+    debug:
+      msg: "{{ as3_responce.json.declaration.JBS_01.A1 }}"
+
+...

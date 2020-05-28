@@ -1,0 +1,14 @@
+---
+
+- name: JBS_01 Post Dec
+  uri:
+    url: https://3.11.134.160/mgmt/shared/appsvcs/declare
+    user: 
+    password: 
+    method: POST
+    body: "{{ lookup('file','as3-declaire-deploy.json') }}"
+    force_basic_auth: yes
+    status_code: 200
+    body_format: json
+    validate_cert: no
+...
