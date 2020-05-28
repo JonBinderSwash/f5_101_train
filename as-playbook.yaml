@@ -1,6 +1,6 @@
 ---
 - name: My AS3 Playbook
-  hosts: localhost
+  hosts: bigip
   connection: local
   gather_facts: false
 
@@ -12,7 +12,7 @@
   tasks:
   - name: Send AS3 Declaration
     uri:
-      url: https://3.11.134.160/mgmt/shared/appsvcs/declare
+      url: https://{{ inventory_hostname }}/mgmt/shared/appsvcs/declare
       user: "{{ bigip_user }}"
       password: "{{ bigip_pass  }}"
       method: "{{ uri_method }}"
